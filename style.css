@@ -47,7 +47,10 @@ a {
   margin: 15px 0;
 }
 
-button {
+.login__btn,
+.sign-up,
+.sign-in,
+.ghost {
   border-radius: 20px;
   border: 1px solid #3bcd4f;
   background-color: #029a16;
@@ -73,7 +76,8 @@ button.ghost {
   border-color: #ffffff;
 }
 
-form {
+.register,
+.login {
   background-color: #ffffff;
   display: flex;
   align-items: center;
@@ -217,7 +221,7 @@ input {
 }
 
 nav {
-  margin-top: 20px;
+  margin-bottom: 1450px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -276,23 +280,23 @@ nav {
 
 .login__btn:hover,
 .login__btn:focus,
+*/
 .btn--sort:hover,
 .btn--sort:focus {
   outline: none;
   color: #777;
 }
-*/
 
 /* MAIN */
 .app {
   position: absolute; /*was relative*/
-  max-width: 100rem;
-  margin-bottom: 800px; /*margin: 4rem auto;*/
-  /* margin: 4rem auto; */
+  max-width: 964px;
+  max-height: 670px;
+  margin-bottom: 50%;
   display: grid;
   grid-template-columns: 4fr 3fr;
   grid-template-rows: auto repeat(3, 15rem) auto;
-  gap: 2rem;
+  gap: 1rem;
 
   /* NOTE This creates the fade in/out anumation */
   opacity: 0;
@@ -325,6 +329,8 @@ nav {
 
 /* MOVEMENTS */
 .movements {
+  max-width: 546px;
+  max-height: 490px;
   grid-row: 2 / span 3;
   background-color: #fff;
   border-radius: 1rem;
@@ -399,6 +405,7 @@ nav {
 }
 
 .btn--sort {
+  background-color: #333;
   margin-left: auto;
   border: none;
   background: none;
@@ -427,14 +434,14 @@ nav {
 }
 
 h2 {
-  margin-bottom: 1.5rem;
   font-size: 1.7rem;
   font-weight: 600;
   color: #333;
-
-  text-align: center; /*added later for login form*/
 }
-
+.welcome {
+  font-size: 1.9rem;
+  font-weight: 500;
+}
 .form {
   display: grid;
   grid-template-columns: 2.5fr 2.5fr 1fr;
@@ -461,7 +468,7 @@ h2 {
   color: #333;
   padding: 0.3rem 1rem;
   border-radius: 0.7rem;
-  transition: all 0.3s;
+  transition: all 0.3s ease 0s;
 }
 
 .form__input:focus {
@@ -476,11 +483,13 @@ h2 {
 
 .form__btn {
   border: none;
+  margin-top: 7px;
+  height: 29.2px;
   border-radius: 0.7rem;
   font-size: 1.8rem;
   background-color: #fff;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.3s ease 0s;
 }
 
 .form__btn:focus {
