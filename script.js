@@ -231,6 +231,96 @@ let currentAccount, timer;
 // updateUI(currentAccount);
 // containerApp.style.opacity = 100;
 
+//NEW with LOGIN
+btnLogin.addEventListener('click', async function (e) {
+  e.preventDefault();
+
+  try {
+    // Make a POST request to the login URL with the provided credentials
+    const loginResponse = await fetch(
+      'https://bank-backend-09hg.onrender.com/account/login',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: inputLoginUsername.value,
+          pin: inputLoginPin.value,
+        }),
+      }
+    );
+
+    // Parse the JSON response
+    const loginData = await loginResponse.json();
+
+    // Check if login was successful
+    if (loginData.status === 'ok') {
+      // Extract the JWT token from the response
+      const token = loginData.data;
+
+      // Use the token to make an authenticated request to get the current account data
+      const accountResponse = await fetch(
+        'https://bank-backend-09hg.onrender.com/account/getaccount',
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      // Parse the JSON response
+      const accountData = await accountResponse.json();
+
+      // Set the currentAccount variable to the received account data
+      currentAccount = accountData;
+      console.log(currentAccount);
+
+      // Display UI and message
+      labelWelcome.textContent = `Welcome back, ${
+        currentAccount.owner.split(' ')[0]
+      }`;
+
+      // Hide container
+      container.style.opacity = 0;
+      containerApp.style.opacity = 100;
+
+      // Create current date and time
+      const now = new Date();
+      const options = {
+        hour: 'numeric',
+        minute: 'numeric',
+        day: 'numeric',
+        month: 'numeric',
+        year: 'numeric',
+      };
+
+      labelDate.textContent = new Intl.DateTimeFormat(
+        currentAccount.locale,
+        options
+      ).format(now);
+
+      // Clear input fields
+      inputLoginUsername.value = inputLoginPin.value = '';
+      inputLoginPin.blur();
+
+      // Timer
+      if (timer) clearInterval(timer);
+      timer = startLogOutTimer();
+
+      // Update UI
+      updateUI(currentAccount);
+    } else {
+      // Handle unsuccessful login
+      console.log('Login failed');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+});
+
+//OLD WITHOUT API
+/*
 btnLogin.addEventListener('click', function (e) {
   // Prevent form from submitting
   e.preventDefault();
@@ -290,6 +380,7 @@ btnLogin.addEventListener('click', function (e) {
     updateUI(currentAccount);
   }
 });
+*/
 
 btnTransfer.addEventListener('click', function (e) {
   e.preventDefault();
